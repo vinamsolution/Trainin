@@ -22,10 +22,7 @@ class Student extends MysqlDatabase
     public function stdentList($Id=0,$limit=5){
         $table_fields  = implode(",",array_keys(get_class_vars(get_called_class())));
         $sql = "select ".$table_fields . " from " . get_class($this);
-        if($Id>0){
-            $sql.=" where Id=". $Id ." limit 1";
-        }else
-            $sql.=" limit $limit";
+        $sql = $Id > 0 ? $sql . " where Id=" . $Id . " limit 1" : $sql . " limit $limit";
         return $this->select($sql);
     }
 }
