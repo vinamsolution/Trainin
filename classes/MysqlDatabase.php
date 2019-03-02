@@ -42,13 +42,3 @@ class MysqlDatabase{
         }
     }
 }
-
-$obj = new MysqlDatabase();
-
-$sql_update ="UPDATE `Student` SET `Name` = 'Amar CP' WHERE `Student`.`Id` = 1";
-
-$sql_select ="SELECT * FROM Student";
-$students_list   = $obj->select($sql_select);
-$students_update = $obj->select($sql_update,"update");
-print_r($students_list);
-print_r($students_update);
