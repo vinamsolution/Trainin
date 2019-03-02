@@ -25,9 +25,8 @@ class MysqlDatabase{
             "3306"
         );
         if(!$this->conn)
-            print_r($this->conn->connect_error);
-        //else if($DEBUG=="9")
-        //   print_r($this->conn);
+            die($this->conn->connect_error);
+
     }
 
     public function select($sql,$type="select"){
