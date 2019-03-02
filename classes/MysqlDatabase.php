@@ -17,7 +17,7 @@ class MysqlDatabase{
     /**
      *
      */
-    private function connect() : void{
+    private function connect() : void {
         $this->conn = new mysqli(
             "localhost",
             "root",
@@ -40,9 +40,9 @@ class MysqlDatabase{
     /**
      * @param string $sql
      * @param string $type
-     * @return mixed
+     * @return integer/array
      */
-    public function select($sql, $type="select"){
+    public function select($sql, $type="select") {
         if($this->debug==1)
             echo "\n Query : ". $sql ."\n";
         $resultSet = $this->conn->query($sql);
