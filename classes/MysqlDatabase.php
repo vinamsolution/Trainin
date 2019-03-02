@@ -9,6 +9,7 @@
 class MysqlDatabase{
     private $conn;
     private $debug;
+
     function __construct(){
         $this->connect();
     }
@@ -16,7 +17,7 @@ class MysqlDatabase{
     /**
      *
      */
-    private function connect(){
+    private function connect() : void{
         $this->conn = new mysqli(
             "localhost",
             "root",
@@ -30,13 +31,18 @@ class MysqlDatabase{
     }
 
     /**
-     * @param mixed $debug
+     * @param integer $debug
      */
     public function setDebug($debug): void {
         $this->debug = $debug;
     }
 
-    public function select($sql,$type="select"){
+    /**
+     * @param string $sql
+     * @param string $type
+     * @return mixed
+     */
+    public function select($sql, $type="select"){
         if($this->debug==1)
             echo "\n Query : ". $sql ."\n";
         $resultSet = $this->conn->query($sql);
