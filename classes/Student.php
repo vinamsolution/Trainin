@@ -26,7 +26,6 @@ class Student extends MysqlDatabase
             $sql.=" where Id=". $Id ." limit 1";
         }else
             $sql.=" limit $limit";
-        echo $sql;
         return $this->select($sql);
     }
 }
