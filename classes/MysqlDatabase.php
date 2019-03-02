@@ -8,7 +8,7 @@
 
 class MysqlDatabase{
     private $conn;
-
+    private $debug;
     function __construct(){
         $this->connect();
     }
@@ -29,7 +29,16 @@ class MysqlDatabase{
 
     }
 
+    /**
+     * @param mixed $debug
+     */
+    public function setDebug($debug): void {
+        $this->debug = $debug;
+    }
+
     public function select($sql,$type="select"){
+        if($this->debug==1)
+            echo "\n Query : ". $sql ."\n";
         $resultSet = $this->conn->query($sql);
         switch($type){
             case "insert":
