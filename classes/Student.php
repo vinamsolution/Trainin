@@ -17,21 +17,6 @@ class Student extends MysqlDatabase {
     function __construct(){
         parent::__construct();
     }
-
-    /**
-     * @return array
-     */
-    public function stdentList() : array {
-        return $this->select();
-    }
-
-    /**
-     * @param array $studentData
-     * @return integer
-     */
-    public function updateStudent($studentData) : int {
-        return $this->update($studentData);
-    }
 }
 
 $stdObj = new Student();
@@ -46,10 +31,10 @@ $studentUpdate = array(
     "Dob" => "1986-05-31",
     "status" => 1,
 );
-$studentsUpdateStatus = $stdObj->updateStudent($studentUpdate);
+$studentsUpdateStatus = $stdObj->update($studentUpdate);
 print_r($studentsUpdateStatus);
 
 
-$students_list   = $stdObj->stdentList();
+$students_list   = $stdObj->select();
 print_r($students_list);
 

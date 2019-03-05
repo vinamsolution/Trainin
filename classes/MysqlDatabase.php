@@ -49,7 +49,7 @@ class MysqlDatabase{
         $usableVaraibles = array_diff($classVariables,$nonUsed);
         $table_fields  = implode(",",$usableVaraibles);
         $sql = "select " . $table_fields . " from ".get_called_class();
-        echo $sql = $Id > 0 ? $sql . " where Id=" . $Id . " limit 1" : $sql . " limit $limit";
+        $sql = $Id > 0 ? $sql . " where Id=" . $Id . " limit 1" : $sql . " limit $limit";
 
         if($this->debug==1)
             echo "\n Query : ". $sql ."\n";
@@ -82,4 +82,19 @@ class MysqlDatabase{
         $sql .=" where Id=".$Id;
         return $this->conn->query($sql);
     }    
+
+    /**
+     * @param array $data
+     * @return int
+     */
+    public function insert($data){
+        $sql = "Inset into ". get_called_class() . " SET ";
+        foreach ($data as $key => $value){
+            if(array_key_exists($key,get_class_vars(get_called_class()))){
+                $sql.= $key. "='" . $value ."',";
+            }
+        }
+        $sql =rtrim($sql,',');
+        return $this->conn->query($sql);
+    }
 }
