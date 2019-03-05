@@ -43,7 +43,7 @@ class MysqlDatabase{
      * @param Int $limit
      * @return array
      */
-    public function select($Id=0, $type="select", $limit=5) {
+    public function select($Id=0, $type="select", $limit=5) : array {
         $nonUsed = array(0=>"conn",1=>"debug");
         $classVariables = array_keys(get_class_vars(get_called_class()));
         $usableVaraibles = array_diff($classVariables,$nonUsed);
@@ -61,7 +61,7 @@ class MysqlDatabase{
      * @param array $data
      * @return int
      */
-    public function update($data){
+    public function update($data) : int {
         $sql = "update ". get_called_class() . " SET ";
         foreach ($data as $key => $value){
             if(array_key_exists($key,get_class_vars(get_called_class()))){
@@ -79,7 +79,7 @@ class MysqlDatabase{
      * @param int $data
      * @return int
      */
-    public function delete($Id){
+    public function delete($Id) : int {
         $sql = "delete from ". get_called_class();
         $sql .=" where Id=".$Id;
         if($this->debug==1)
@@ -91,7 +91,7 @@ class MysqlDatabase{
      * @param array $data
      * @return int
      */
-    public function insert($data){
+    public function insert($data) : int {
         $sql = "Inset into ". get_called_class() . " SET ";
         foreach ($data as $key => $value){
             if(array_key_exists($key,get_class_vars(get_called_class()))){
