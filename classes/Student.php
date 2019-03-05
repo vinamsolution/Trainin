@@ -18,23 +18,3 @@ class Student extends MysqlDatabase {
         parent::__construct();
     }
 }
-
-$stdObj = new Student();
-
-
-$stdObj->setDebug(1);
-
-$studentUpdate = array(
-    "Id" => 1,
-    "Name" => "Amar CP",
-    "Email" => "amarcp@gmail.com",
-    "Dob" => "1986-05-31",
-    "status" => 1,
-);
-$studentsUpdateStatus = $stdObj->update($studentUpdate);
-print_r($studentsUpdateStatus);
-
-
-$students_list   = $stdObj->select();
-print_r($students_list);
-

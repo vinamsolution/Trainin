@@ -39,18 +39,17 @@ class MysqlDatabase{
 
     /**
      * @param Int $Id
-     * @param string $type
      * @param Int $limit
      * @return array
      */
-    public function select($Id=0, $type="select", $limit=5) : array {
+    public function select($Id=0,$limit=5) : array {
         $nonUsed = array(0=>"conn",1=>"debug");
         $classVariables = array_keys(get_class_vars(get_called_class()));
         $usableVaraibles = array_diff($classVariables,$nonUsed);
         $table_fields  = implode(",",$usableVaraibles);
         $sql = "select " . $table_fields . " from ".get_called_class();
-        $sql = $Id > 0 ? $sql . " where Id=" . $Id . " limit 1" : $sql . " limit $limit";
-
+        $sql = $Id > 0 ? $sql . " where Id=" . $Id ." limit 1": $sql ."";
+        $sql .= " order by id desc limit $limit ";
         if($this->debug==1)
             echo "\n Query : ". $sql ."\n";
         $resultSet = $this->conn->query($sql);
@@ -92,7 +91,7 @@ class MysqlDatabase{
      * @return int
      */
     public function insert($data) : int {
-        $sql = "Inset into ". get_called_class() . " SET ";
+        $sql = "Insert into ". get_called_class() . " SET ";
         foreach ($data as $key => $value){
             if(array_key_exists($key,get_class_vars(get_called_class()))){
                 $sql.= $key. "='" . $value ."',";
