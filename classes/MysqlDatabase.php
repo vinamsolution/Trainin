@@ -17,11 +17,11 @@ class MysqlDatabase{
     /**
      *
      */
-    private function connect() : void {
+    private  function connect() : void {
         $this->conn = new mysqli(
             "localhost",
             "root",
-            "IntoV1nam#@100",
+            "root",
             "School",
             "3306"
         );
@@ -38,22 +38,48 @@ class MysqlDatabase{
     }
 
     /**
-     * @param string $sql
+     * @param Int $Id
      * @param string $type
-     * @return integer/array
+     * @param Int $limit
+     * @return array
      */
-    public function select($sql, $type="select") {
+    public function select($Id=0, $type="select", $limit=5) {
+        $nonUsed = array(0=>"conn",1=>"debug");
+        $classVariables = array_keys(get_class_vars(get_called_class()));
+        $usableVaraibles = array_diff($classVariables,$nonUsed);
+        $table_fields  = implode(",",$usableVaraibles);
+        $sql = "select " . $table_fields . " from ".get_called_class();
+        echo $sql = $Id > 0 ? $sql . " where Id=" . $Id . " limit 1" : $sql . " limit $limit";
+
         if($this->debug==1)
             echo "\n Query : ". $sql ."\n";
         $resultSet = $this->conn->query($sql);
-        switch($type){
-            case "insert":
-            case "update":
-            case "delete":
-                return $resultSet;
-                break;
-            default:
-                return $resultSet->fetch_all(1);
-        }
+        return $resultSet->fetch_all(1);
     }
+
+    /**
+     * @param array $data
+     * @return int
+     */
+    public function update($data){
+        $sql = "update ". get_called_class() . " SET ";
+        foreach ($data as $key => $value){
+            if(array_key_exists($key,get_class_vars(get_called_class()))){
+                $sql.= $key. "='" . $value ."',";
+            }
+        }
+        $sql =rtrim($sql,',');
+        $sql .=" where Id=".$data['Id'];
+        return $this->conn->query($sql);
+    }
+
+    /**
+     * @param int $data
+     * @return int
+     */
+    public function delete($Id){
+        $sql = "delete from ". get_called_class();
+        $sql .=" where Id=".$Id;
+        return $this->conn->query($sql);
+    }    
 }
