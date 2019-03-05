@@ -70,6 +70,8 @@ class MysqlDatabase{
         }
         $sql =rtrim($sql,',');
         $sql .=" where Id=".$data['Id'];
+        if($this->debug==1)
+            echo "\n Query : ". $sql ."\n";
         return $this->conn->query($sql);
     }
 
@@ -80,6 +82,8 @@ class MysqlDatabase{
     public function delete($Id){
         $sql = "delete from ". get_called_class();
         $sql .=" where Id=".$Id;
+        if($this->debug==1)
+            echo "\n Query : ". $sql ."\n";
         return $this->conn->query($sql);
     }    
 
@@ -95,6 +99,8 @@ class MysqlDatabase{
             }
         }
         $sql =rtrim($sql,',');
+        if($this->debug==1)
+            echo "\n Query : ". $sql ."\n";
         return $this->conn->query($sql);
     }
 }
