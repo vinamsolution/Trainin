@@ -21,7 +21,7 @@ class MysqlDatabase{
         $this->conn = new mysqli(
             "localhost",
             "root",
-            "root",
+            "IntoV1nam#@100",
             "School",
             "3306"
         );
